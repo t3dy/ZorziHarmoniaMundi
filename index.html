@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'armonia del mondo — Francesco Zorzi</title>
+  <meta name="description" content="Detailed scholarly summaries of Francesco Zorzi's De Harmonia Mundi (L'armonia del mondo), ed. Saverio Campanini, Bompiani 2010.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="subtitle">Scholarly Summaries</div>
+  <h1><em>L'armonia del mondo</em></h1>
+  <div class="meta">Francesco Zorzi · ed. Saverio Campanini · Bompiani 2010 · 3,087 pp. · 163 chunks</div>
+</header>
+
+<main>
+  <div class="filter-bar">
+    <input type="search" id="search" placeholder="Search sections, headings, content…" aria-label="Search chunks">
+    <span class="count" id="count-display"></span>
+  </div>
+  <div class="card-grid" id="grid" aria-live="polite"></div>
+</main>
+
+<footer>
+  <p>
+    Summaries generated from the Bompiani critical edition (2010).
+    Verbatim excerpts reproduced under fair use for scholarly commentary. ·
+    <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+<script>
+const TOTAL = 163;
+
+function pad(n) { return String(n).padStart(3, '0'); }
+
+function cardHTML(s) {
+  const id = pad(s.chunk);
+  return `<a class="card" href="chunk.html?id=${id}" aria-label="Chunk ${s.chunk}: ${s.heading}">
+    <div class="card-num">Chunk ${s.chunk} of ${TOTAL}</div>
+    <div class="card-heading">${escHtml(s.heading)}</div>
+    <div class="card-pages">${escHtml(s.pages || '')}</div>
+    <div class="card-summary">${escHtml(s.card_summary || '')}</div>
+    <div class="card-arrow">Read full summary →</div>
+  </a>`;
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function renderGrid(items) {
+  const grid = document.getElementById('grid');
+  document.getElementById('count-display').textContent =
+    items.length === TOTAL ? `${TOTAL} chunks` : `${items.length} of ${TOTAL} chunks`;
+  grid.innerHTML = items.map(cardHTML).join('');
+}
+
+function skeletons(n) {
+  return Array.from({length: n}, (_,i) => `
+    <div class="card loading" aria-hidden="true">
+      <div class="card-num">Chunk ${i+1}</div>
+      <div class="card-heading">Loading…</div>
+      <div class="card-summary">Loading…</div>
+    </div>`).join('');
+}
+
+let allChunks = [];
+
+async function init() {
+  document.getElementById('grid').innerHTML = skeletons(20);
+  try {
+    const r = await fetch('data/summaries.json');
+    if (!r.ok) throw new Error(r.status);
+    allChunks = await r.json();
+    renderGrid(allChunks);
+  } catch(e) {
+    document.getElementById('grid').innerHTML =
+      '<p class="error-msg">Summaries not yet generated. Run the build script to populate data/summaries.json.</p>';
+  }
+}
+
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { renderGrid(allChunks); return; }
+  const filtered = allChunks.filter(s =>
+    s.heading.toLowerCase().includes(q) ||
+    (s.card_summary || '').toLowerCase().includes(q) ||
+    (s.pages || '').toLowerCase().includes(q)
+  );
+  renderGrid(filtered);
+});
+
+init();
+</script>
+</body>
+</html>

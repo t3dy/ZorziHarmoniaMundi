@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chunk — L'armonia del mondo</title>
+  <meta name="description" content="Detailed summary of a section of Francesco Zorzi's De Harmonia Mundi.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header>
+  <div class="subtitle">Scholarly Summaries</div>
+  <h1><em>L'armonia del mondo</em></h1>
+  <div class="meta">Francesco Zorzi · ed. Saverio Campanini · Bompiani 2010</div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">← All Chunks</a>
+</nav>
+
+<main>
+  <div class="essay-wrap" id="essay-wrap">
+    <div class="spinner" id="spinner"></div>
+  </div>
+</main>
+
+<footer>
+  <p>
+    Summaries generated from the Bompiani critical edition (2010).
+    Verbatim excerpts reproduced under fair use for scholarly commentary. ·
+    <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+<script>
+const TOTAL = 163;
+
+function pad(n) { return String(n).padStart(3, '0'); }
+
+function parseMarkdown(md) {
+  // Minimal markdown → HTML: headings, bold, italic, blockquotes, paragraphs
+  let html = md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    // blockquotes: lines starting with >
+    .replace(/^&gt;&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
+    // Merge consecutive blockquote lines
+    .replace(/<\/blockquote>\n<blockquote>/g, '\n')
+    // headings
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+    // bold/italic
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // horizontal rules
+    .replace(/^---+$/gm, '<hr>')
+    // paragraphs: double newlines
+    .replace(/\n{2,}/g, '\n</p><p>\n')
+    .replace(/\n/g, '<br>');
+  return '<p>' + html + '</p>';
+}
+
+function renderEssay(data) {
+  const wrap = document.getElementById('essay-wrap');
+  const prev = data.chunk > 1 ? `<a href="chunk.html?id=${pad(data.chunk - 1)}">← Chunk ${data.chunk - 1}</a>` : '<span></span>';
+  const next = data.chunk < TOTAL ? `<a href="chunk.html?id=${pad(data.chunk + 1)}">Chunk ${data.chunk + 1} →</a>` : '<span></span>';
+
+  document.title = `${data.heading} — L'armonia del mondo`;
+
+  wrap.innerHTML = `
+    <div class="essay-header">
+      <div class="essay-chunk-id">Chunk ${data.chunk} of ${TOTAL}</div>
+      <h1 class="essay-title">${escHtml(data.heading)}</h1>
+      <div class="essay-pages">${escHtml(data.pages || '')}</div>
+    </div>
+    <div class="essay-card-summary">${escHtml(data.card_summary || '')}</div>
+    <div class="essay-body">${parseMarkdown(data.essay || '')}</div>
+    <div class="chunk-nav">${prev}${next}</div>
+  `;
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+async function init() {
+  const params = new URLSearchParams(window.location.search);
+  const rawId = params.get('id') || '001';
+  const id = pad(parseInt(rawId, 10));
+  const num = parseInt(rawId, 10);
+
+  try {
+    const r = await fetch(`data/essays/chunk_${id}.json`);
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    renderEssay(data);
+  } catch(e) {
+    document.getElementById('essay-wrap').innerHTML =
+      `<p class="error-msg">Essay for chunk ${num} not yet generated, or invalid chunk ID.</p>
+       <div class="chunk-nav">
+         ${num > 1 ? `<a href="chunk.html?id=${pad(num-1)}">← Chunk ${num-1}</a>` : '<span></span>'}
+         ${num < TOTAL ? `<a href="chunk.html?id=${pad(num+1)}">Chunk ${num+1} →</a>` : '<span></span>'}
+       </div>`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
