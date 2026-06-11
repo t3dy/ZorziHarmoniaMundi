@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Harmonia Mundi — Francesco Zorzi</title>
+  <meta name="description" content="Detailed summaries of the three canticles of De Harmonia Mundi, with 2000-4000 word essays per subsection.">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .dharma-grid { grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); }
+    .dharma-card .card-summary { font-size: .92rem; line-height: 1.7; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="subtitle">De Harmonia Mundi</div>
+  <h1><em>L'armonia del mondo</em></h1>
+  <div class="meta">Francesco Zorzi · 1525 · Deep Subsection Summaries</div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">Summaries</a> · <a href="timeline.html">Timeline</a> · <a href="#">De Harmonia Mundi</a>
+</nav>
+
+<main>
+  <div class="filter-bar">
+    <input type="search" id="search" placeholder="Search canticles, tones, topics…" aria-label="Search subsections">
+    <span class="count" id="count-display"></span>
+  </div>
+  <div class="card-grid dharma-grid" id="grid" aria-live="polite"></div>
+</main>
+
+<footer>
+  <p>
+    Deep subsection summaries (2000–4000 words) covering every detail, reference, and context.
+    Verbatim excerpts reproduced under fair use for scholarly commentary. ·
+    <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+<script>
+const TOTAL_DHARMA = 107; // chunks 39-145
+
+function pad(n) { return String(n).padStart(3, '0'); }
+
+function cardHTML(s) {
+  const actualChunk = 38 + s.dharma_num; // dharma_num 1 = chunk 39
+  const id = pad(actualChunk);
+  return `<a class="card dharma-card" href="dharma-essay.html?id=${id}" aria-label="Subsection ${s.dharma_num}: ${s.heading}">
+    <div class="card-num">Subsection ${s.dharma_num} of ${TOTAL_DHARMA}</div>
+    <div class="card-heading">${escHtml(s.heading)}</div>
+    <div class="card-pages">${escHtml(s.pages || '')}</div>
+    <div class="card-summary">${escHtml(s.preview || '')}</div>
+    <div class="card-arrow">Read full essay →</div>
+  </a>`;
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function renderGrid(items) {
+  const grid = document.getElementById('grid');
+  document.getElementById('count-display').textContent =
+    items.length === TOTAL_DHARMA ? `${TOTAL_DHARMA} subsections` : `${items.length} of ${TOTAL_DHARMA} subsections`;
+  grid.innerHTML = items.map(cardHTML).join('');
+}
+
+function skeletons(n) {
+  return Array.from({length: n}, (_,i) => `
+    <div class="card dharma-card loading" aria-hidden="true">
+      <div class="card-num">Subsection ${i+1}</div>
+      <div class="card-heading">Loading…</div>
+      <div class="card-summary">Loading…</div>
+    </div>`).join('');
+}
+
+let allSections = [];
+
+async function init() {
+  document.getElementById('grid').innerHTML = skeletons(20);
+  try {
+    const r = await fetch('data/dharma-summaries.json');
+    if (!r.ok) throw new Error(r.status);
+    allSections = await r.json();
+    renderGrid(allSections);
+  } catch(e) {
+    document.getElementById('grid').innerHTML =
+      '<p class="error-msg">Summaries not yet generated. Deep subsection essays coming soon.</p>';
+  }
+}
+
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { renderGrid(allSections); return; }
+  const filtered = allSections.filter(s =>
+    s.heading.toLowerCase().includes(q) ||
+    (s.preview || '').toLowerCase().includes(q) ||
+    (s.pages || '').toLowerCase().includes(q)
+  );
+  renderGrid(filtered);
+});
+
+init();
+</script>
+</body>
+</html>

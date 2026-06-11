@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chunk — L'armonia del mondo</title>
-  <meta name="description" content="Detailed summary of a section of Francesco Zorzi's De Harmonia Mundi.">
+  <title>De Harmonia Mundi Subsection — L'armonia del mondo</title>
+  <meta name="description" content="Deep subsection summary of De Harmonia Mundi.">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .essay-body { max-width: 850px; }
+    .essay-body h2 { margin-top: 2.5rem; }
+    .essay-body h3 { margin-top: 1.8rem; }
+  </style>
 </head>
 <body>
 
 <header>
-  <div class="subtitle">Scholarly Summaries</div>
+  <div class="subtitle">De Harmonia Mundi</div>
   <h1><em>L'armonia del mondo</em></h1>
-  <div class="meta">Francesco Zorzi · ed. Saverio Campanini · Bompiani 2010</div>
+  <div class="meta">Francesco Zorzi · 1525</div>
 </header>
 
 <nav class="breadcrumb">
-  <a href="index.html">← All Chunks</a> · <a href="dharma.html">De Harmonia Mundi</a> · <a href="timeline.html">Timeline</a>
+  <a href="dharma.html">← All Subsections</a> · <a href="timeline.html">Timeline</a>
 </nav>
 
 <main>
@@ -27,41 +32,32 @@
 
 <footer>
   <p>
-    Summaries generated from the Bompiani critical edition (2010).
+    Deep subsection summaries (2000–4000 words) covering every detail, reference, and context.
     Verbatim excerpts reproduced under fair use for scholarly commentary. ·
     <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
   </p>
 </footer>
 
 <script>
-const TOTAL = 163;
+const TOTAL_DHARMA = 107;
 
 function pad(n) { return String(n).padStart(3, '0'); }
 
 function parseMarkdown(md) {
-  // Minimal markdown → HTML: headings, bold, italic, blockquotes, paragraphs
   let html = md
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    // blockquotes: lines starting with >
     .replace(/^&gt;&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
     .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
-    // Merge consecutive blockquote lines
     .replace(/<\/blockquote>\n<blockquote>/g, '\n')
-    // cite tags (unescape back to HTML after escaping)
     .replace(/&lt;cite&gt;(.+?)&lt;\/cite&gt;/g, '<cite>$1</cite>')
-    // Merge cite tags directly after blockquotes (keep citations inline with quotes)
     .replace(/<\/blockquote>\n+<cite>/g, '<cite>')
-    // headings
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
     .replace(/^# (.+)$/gm, '<h2>$1</h2>')
-    // bold/italic
     .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    // horizontal rules
     .replace(/^---+$/gm, '<hr>')
-    // paragraphs: double newlines
     .replace(/\n{2,}/g, '\n</p><p>\n')
     .replace(/\n/g, '<br>');
   return '<p>' + html + '</p>';
@@ -69,18 +65,19 @@ function parseMarkdown(md) {
 
 function renderEssay(data) {
   const wrap = document.getElementById('essay-wrap');
-  const prev = data.chunk > 1 ? `<a href="chunk.html?id=${pad(data.chunk - 1)}">← Chunk ${data.chunk - 1}</a>` : '<span></span>';
-  const next = data.chunk < TOTAL ? `<a href="chunk.html?id=${pad(data.chunk + 1)}">Chunk ${data.chunk + 1} →</a>` : '<span></span>';
+  const dharmaNum = parseInt(data.chunk) - 38; // chunk 39 = dharma 1
+  const prev = dharmaNum > 1 ? `<a href="dharma-essay.html?id=${pad(dharmaNum - 1 + 38)}">← Subsection ${dharmaNum - 1}</a>` : '<span></span>';
+  const next = dharmaNum < TOTAL_DHARMA ? `<a href="dharma-essay.html?id=${pad(dharmaNum + 1 + 38)}">Subsection ${dharmaNum + 1} →</a>` : '<span></span>';
 
   document.title = `${data.heading} — L'armonia del mondo`;
 
   wrap.innerHTML = `
     <div class="essay-header">
-      <div class="essay-chunk-id">Chunk ${data.chunk} of ${TOTAL}</div>
+      <div class="essay-chunk-id">Subsection ${dharmaNum} of ${TOTAL_DHARMA}</div>
       <h1 class="essay-title">${escHtml(data.heading)}</h1>
       <div class="essay-pages">${escHtml(data.pages || '')}</div>
     </div>
-    <div class="essay-card-summary">${escHtml(data.card_summary || '')}</div>
+    <div class="essay-card-summary">${escHtml(data.preview || '')}</div>
     <div class="essay-body">${parseMarkdown(data.essay || '')}</div>
     <div class="chunk-nav">${prev}${next}</div>
   `;
@@ -94,21 +91,21 @@ function escHtml(s) {
 
 async function init() {
   const params = new URLSearchParams(window.location.search);
-  const rawId = params.get('id') || '001';
-  const id = pad(parseInt(rawId, 10));
-  const num = parseInt(rawId, 10);
+  const rawId = params.get('id') || '039';
+  const chunkId = parseInt(rawId, 10);
+  const dharmaNum = chunkId - 38;
 
   try {
-    const r = await fetch(`data/essays/chunk_${id}.json`);
+    const r = await fetch(`data/dharma-essays/chunk_${pad(chunkId)}.json`);
     if (!r.ok) throw new Error(r.status);
     const data = await r.json();
     renderEssay(data);
   } catch(e) {
     document.getElementById('essay-wrap').innerHTML =
-      `<p class="error-msg">Essay for chunk ${num} not yet generated, or invalid chunk ID.</p>
+      `<p class="error-msg">Essay for subsection ${dharmaNum} not yet generated.</p>
        <div class="chunk-nav">
-         ${num > 1 ? `<a href="chunk.html?id=${pad(num-1)}">← Chunk ${num-1}</a>` : '<span></span>'}
-         ${num < TOTAL ? `<a href="chunk.html?id=${pad(num+1)}">Chunk ${num+1} →</a>` : '<span></span>'}
+         ${dharmaNum > 1 ? `<a href="dharma-essay.html?id=${pad(dharmaNum - 1 + 38)}">← Subsection ${dharmaNum - 1}</a>` : '<span></span>'}
+         ${dharmaNum < TOTAL_DHARMA ? `<a href="dharma-essay.html?id=${pad(dharmaNum + 1 + 38)}">Subsection ${dharmaNum + 1} →</a>` : '<span></span>'}
        </div>`;
   }
 }
