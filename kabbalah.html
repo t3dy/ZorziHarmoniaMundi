@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kabbalah and Christian Mysticism — L'armonia del mondo</title>
+  <meta name="description" content="Comprehensive synthesis of Kabbalistic and Christian cabalist content in Francesco Zorzi's De Harmonia Mundi.">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .kabbalah-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .kabbalah-toc {
+      background: var(--card-bg);
+      border: 1px solid var(--card-brd);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .kabbalah-toc h3 {
+      margin: 0 0 1rem 0;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+    .kabbalah-toc ul {
+      list-style: none;
+      padding: 0;
+    }
+    .kabbalah-toc li {
+      margin-bottom: 0.5rem;
+    }
+    .kabbalah-toc a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .kabbalah-toc a:hover {
+      text-decoration: underline;
+    }
+    .kabbalah-body {
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+    .kabbalah-body h1 {
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--rust);
+      margin: 0 0 1rem 0;
+      line-height: 1.2;
+    }
+    .kabbalah-body h2 {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--rust);
+      margin: 2.5rem 0 0.8rem 0;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 0.4rem;
+    }
+    .kabbalah-body h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 1.8rem 0 0.6rem 0;
+    }
+    .kabbalah-body p {
+      margin-bottom: 1.2rem;
+    }
+    .kabbalah-body blockquote {
+      padding: 0;
+      margin: 1.2rem 0 1.2rem 2rem;
+      font-style: italic;
+      font-size: 0.98rem;
+      color: #3a2a10;
+    }
+    .kabbalah-body cite {
+      display: inline;
+      font-style: normal;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-left: 0.5em;
+    }
+    .citation {
+      color: var(--rust);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--gold);
+      cursor: pointer;
+    }
+    .citation:hover {
+      background: #ede4ce;
+      border-bottom-color: var(--rust);
+    }
+    @media (max-width: 900px) {
+      .kabbalah-wrap {
+        padding: 0 1rem;
+      }
+      .kabbalah-body {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="subtitle">Philosophical Synthesis</div>
+  <h1><em>L'armonia del mondo</em></h1>
+  <div class="meta">Francesco Zorzi · Kabbalah and Christian Mysticism</div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">Summaries</a> · <a href="dharma.html">De Harmonia Mundi</a> · <a href="timeline.html">Timeline</a> · <a href="#">Kabbalah & Mysticism</a>
+</nav>
+
+<main>
+  <div class="kabbalah-wrap">
+    <div class="kabbalah-toc">
+      <h3>Contents</h3>
+      <ul>
+        <li><a href="#intro">Introduction: Zorzi as Christian Cabalist Synthesizer</a></li>
+        <li><a href="#section1">Section 1: Kabbalistic Cosmology</a></li>
+        <li><a href="#section2">Section 2: Harmonic Correspondence and Number Theory</a></li>
+        <li><a href="#section3">Section 3: Hebrew Sources and Textual Authorities</a></li>
+        <li><a href="#section4">Section 4: Christian Integration</a></li>
+        <li><a href="#section5">Section 5: Mystical Praxis</a></li>
+        <li><a href="#conclusion">Conclusion: Legacy and Significance</a></li>
+      </ul>
+    </div>
+
+    <div class="kabbalah-body" id="essay-content">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>
+    Comprehensive synthesis of Kabbalistic and Christian cabalist content in De Harmonia Mundi (6,262 words).
+    All citations are hyperlinked to the relevant subsections. ·
+    <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+<script>
+function parseMarkdown(md) {
+  let html = md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/^&gt;&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
+    .replace(/<\/blockquote>\n<blockquote>/g, '\n')
+    .replace(/&lt;cite&gt;(.+?)&lt;\/cite&gt;/g, '<cite>$1</cite>')
+    .replace(/<\/blockquote>\n+<cite>/g, '<cite>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^---+$/gm, '<hr>')
+    .replace(/\n{2,}/g, '\n</p><p>\n')
+    .replace(/\n/g, '<br>');
+  return '<p>' + html + '</p>';
+}
+
+function convertCitations(html) {
+  // Convert [Section N: "Heading" · pp. X–Y] to hyperlinks
+  const pattern = /\[Section (\d+):\s*"([^"]+)"\s*·\s*pp?\.\s*([^\]]+)\]/g;
+  return html.replace(pattern, function(match, sectionNum, heading, pages) {
+    const chunkNum = 38 + parseInt(sectionNum);
+    const chunkId = String(chunkNum).padStart(3, '0');
+    return `<a href="dharma-essay.html?id=${chunkId}" class="citation">Section ${sectionNum}: "${heading}" · pp. ${pages}</a>`;
+  });
+}
+
+async function init() {
+  try {
+    const r = await fetch('data/kabbalah-essay.json');
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    let html = parseMarkdown(data.essay);
+    html = convertCitations(html);
+    document.getElementById('essay-content').innerHTML = html;
+    window.history.replaceState(null, '', window.location.pathname);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('essay-content').innerHTML =
+      '<p class="error-msg">Essay not found.</p>';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
