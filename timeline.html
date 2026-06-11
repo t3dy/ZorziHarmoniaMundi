@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biographical Timeline — L'armonia del mondo</title>
+  <meta name="description" content="Biographical timeline of Francesco Zorzi (1466–1525), Venetian Franciscan friar and Christian Kabbalist.">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .timeline-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--rule);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .timeline-tabs button {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: .8rem 1.2rem;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: .9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      transition: color .15s, border-color .15s;
+    }
+    .timeline-tabs button.active {
+      color: var(--ink);
+      border-bottom-color: var(--gold);
+    }
+    .timeline-tabs button:hover {
+      color: var(--ink);
+    }
+
+    .timeline-content { display: none; }
+    .timeline-content.active { display: block; }
+
+    .timeline {
+      position: relative;
+      padding: 2rem 0 2rem 3rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--rule);
+    }
+
+    .timeline-event {
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .timeline-event::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      top: .2rem;
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border: 2px solid var(--paper);
+      border-radius: 50%;
+    }
+
+    .timeline-year {
+      font-family: var(--sans);
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .2rem;
+    }
+
+    .timeline-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--rust);
+      margin-bottom: .4rem;
+    }
+
+    .timeline-description {
+      font-size: .95rem;
+      line-height: 1.7;
+      color: #3a2e1a;
+    }
+
+    .timeline-description strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .reference-link {
+      display: block;
+      margin-top: .6rem;
+      font-family: var(--sans);
+      font-size: .8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="subtitle">Biographical Context</div>
+  <h1><em>L'armonia del mondo</em></h1>
+  <div class="meta">Francesco Zorzi · 1466–1525</div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">← All Chunks</a> · <a href="#">Timeline</a>
+</nav>
+
+<main>
+  <div style="max-width: 780px; margin: 0 auto;">
+    <div class="timeline-tabs">
+      <button class="tab-btn active" data-tab="biography">Biographical Timeline</button>
+      <button class="tab-btn" data-tab="works">Major Works</button>
+    </div>
+
+    <!-- Biographical Timeline Tab -->
+    <div id="biography" class="timeline-content active">
+      <div class="timeline">
+        <div class="timeline-event">
+          <div class="timeline-year">1466</div>
+          <div class="timeline-title">Birth in Venice</div>
+          <div class="timeline-description">
+            Francesco Zorzi (also called Giorgio) is born on <strong>7 April 1466</strong> in Venice, the son of Benedetto and Bianca Sanudo, niece of the celebrated Venetian historian and chronicler Marin Sanudo. He descends from one of the oldest patrician families of the Venetian republic.
+          </div>
+          <span class="reference-link">Source: Chunk 1, Biographical Sketch</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">c. 1470s</div>
+          <div class="timeline-title">Early Formation</div>
+          <div class="timeline-description">
+            Zorzi's early formation is poorly documented. He probably attended the <strong>Studio patavino</strong> (University of Padua) before pursuing religious vocation.
+          </div>
+          <span class="reference-link">Source: Chunk 1, Biographical Sketch</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">Before 1481</div>
+          <div class="timeline-title">Entry into the Franciscan Observance</div>
+          <div class="timeline-description">
+            Zorzi enters the <strong>Franciscan Observance</strong>, the reformed branch of the Franciscan order. He associates himself from early on with the convent of <strong>San Francesco della Vigna</strong> in the Castello district of Venice. For a long period, he holds the title of <em>lector</em> (teacher of theology) in the schools of the order.
+          </div>
+          <span class="reference-link">Source: Chunk 1, Biographical Sketch</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">1494</div>
+          <div class="timeline-title">Pilgrimage to Palestine</div>
+          <div class="timeline-description">
+            Zorzi undertakes a formative pilgrimage to the <strong>Holy Land</strong>, visiting biblical sites from north to south along the customary route. Campanini judges this experience so formative that he dedicates a special section of the introduction to it. The abundance of references to Palestinian sites and monuments across all of Zorzi's works—including works written more than forty years later—testifies to the lasting impression this pilgrimage made on both his spiritual life and his exegetical method.
+          </div>
+          <span class="reference-link">Source: Chunk 1, The Palestinian Pilgrimage</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">c. 1500</div>
+          <div class="timeline-title">Engagement with the Hebrew Book Trade</div>
+          <div class="timeline-description">
+            Zorzi develops his earliest documented engagement with the Jewish world and Hebrew scholarship. He forms a friendship and possibly patronage relationship with <strong>Gershom Soncino</strong>, the celebrated Hebrew printer, who attempts to establish a Hebrew printing press in Venice around the turn of the century. This connection provides Zorzi with access to Hebrew texts and manuscripts of kabbalistic works.
+          </div>
+          <span class="reference-link">Source: Chunk 1, Early Connections to the Hebrew World</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">1502</div>
+          <div class="timeline-title">First Printed Mention; Excommunication Episode</div>
+          <div class="timeline-description">
+            <strong>Two significant events occur this year:</strong>
+            <br><br>
+            <em>Publication:</em> The first book to mention Zorzi—the first book printed in Fano by Lorenzo Bevilacqua (Laurentius Abstemius)—is dedicated to the Venetian friar, documenting his growing reputation.
+            <br><br>
+            <em>Excommunication:</em> A passage in Marin Sanudo's <em>Diari</em> records that Zorzi is absolved from a previous excommunication imposed on him for having defended <strong>Giovanni Maria Biondo</strong>, identified as one of the most significant Italian proto-Protestants. The precise extent to which Zorzi shared Biondo's ideas remains unknown, but the episode is emblematic of the religious tensions already sharpening at the opening of the sixteenth century.
+          </div>
+          <span class="reference-link">Source: Chunk 1, Early Connections to the Hebrew World; The 1502 Excommunication Episode</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">1502–1525</div>
+          <div class="timeline-title">Years of Composition and Diplomatic Activity</div>
+          <div class="timeline-description">
+            During these two decades, Zorzi composes his major theological and philosophical works, including <em>De Harmonia Mundi</em>. Despite his religious vocation precluding secular office, he plays a notable role in the political life of his times through diplomatic missions and theological consultations, particularly regarding Henry VIII's divorce and other matters of church and state.
+          </div>
+          <span class="reference-link">Source: Campanini's Introductory Essay</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">September 1525</div>
+          <div class="timeline-title">Publication of De Harmonia Mundi Totius Cantica Tria</div>
+          <div class="timeline-description">
+            Zorzi's magnum opus, <strong><em>De harmonia mundi totius cantica tria</em></strong> (On the Harmony of the Entire World in Three Canticles), is published in <strong>Venice by Bernardino Vitali</strong>, using Latin, Greek, and Hebrew typefaces. The work represents the culmination of Zorzi's lifelong synthesis of Christian theology, Neoplatonism, Hermeticism, and Jewish Kabbalah. Campanini situates it as one of the high points of the Florentine Neoplatonist tradition inaugurated by Ficino and Pico della Mirandola.
+          </div>
+          <span class="reference-link">Source: Chunk 1, The De harmonia mundi: Publication and Positioning</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">After 1525</div>
+          <div class="timeline-title">Later Years and Legacy</div>
+          <div class="timeline-description">
+            Zorzi continues his theological work and pastoral duties within the Franciscan order. He dies sometime <strong>after 1525</strong>, exact date unknown. His work exerts significant influence on subsequent Renaissance and early modern thought, particularly in Christian Kabbalah, Neoplatonism, and harmonic cosmology. The 2010 Bompiani edition by Saverio Campanini restores his work to contemporary scholarly attention.
+          </div>
+          <span class="reference-link">Source: Campanini's Editorial Assessment</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Major Works Tab -->
+    <div id="works" class="timeline-content">
+      <div class="timeline">
+        <div class="timeline-event">
+          <div class="timeline-year">c. 1510–1520</div>
+          <div class="timeline-title">Composition of De Harmonia Mundi</div>
+          <div class="timeline-description">
+            Zorzi's primary work is the <em>De harmonia mundi totius cantica tria</em>, a vast cosmological and theological synthesis organized into three canticles (cantici) corresponding to different levels of reality. The work is structured around music as the "grammar of all levels of being" (grammatica di tutti i livelli del reale), demonstrating harmonic correspondences from the divine realm through the celestial spheres to the human body and the material world.
+          </div>
+          <span class="reference-link">Source: All chunks 39–145 (The Three Canticles)</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">1525</div>
+          <div class="timeline-title">De Harmonia Mundi Published</div>
+          <div class="timeline-description">
+            The complete work appears in September 1525 (3,087 pages in the Bompiani edition) as a monumental synthesis of Renaissance learning. It contains over fifty kabbalistic sources, extensive references to Platonic, Aristotelian, and Neoplatonic philosophy, Church Fathers, and contemporary humanist scholarship. The edition includes detailed exegetical commentary on Scripture and harmonic analysis of theological concepts.
+          </div>
+          <span class="reference-link">Source: Chunk 1; All essay chunks</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">1557</div>
+          <div class="timeline-title">French Translation by Guy Le Fèvre de la Boderie</div>
+          <div class="timeline-description">
+            <em>De Harmonia Mundi</em> is translated into French by <strong>Guy Le Fèvre de la Boderie</strong>, a major humanist and translator. This French version significantly extends Zorzi's influence into Francophone intellectual circles and establishes his work as a canonical Renaissance text on harmonic cosmology and Christian Kabbalah.
+          </div>
+          <span class="reference-link">Source: Campanini's Reception History</span>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-year">2010</div>
+          <div class="timeline-title">Bompiani Critical Edition</div>
+          <div class="timeline-description">
+            <strong>Saverio Campanini</strong> produces a comprehensive critical edition of <em>De Harmonia Mundi</em> published by Bompiani in the series <em>Il Pensiero Occidentale</em>. The edition presents the full Latin text alongside a complete Italian translation, extensive prefatory essay, and critical apparatus identifying and annotating over fifty kabbalistic sources, references to Greek and Hebrew texts, and Zorzi's theological method. This modern edition restores Zorzi's work to contemporary scholarly attention and enables new research into Renaissance Christian Kabbalah.
+          </div>
+          <span class="reference-link">Source: The present website</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>
+    Biographical information extracted from Saverio Campanini's introductory essay.
+    Timeline compiled from scholarly summaries. ·
+    <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabName = this.getAttribute('data-tab');
+
+    // Hide all tabs
+    document.querySelectorAll('.timeline-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+    });
+
+    // Show selected tab and mark button active
+    document.getElementById(tabName).classList.add('active');
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
