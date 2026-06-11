@@ -277,12 +277,19 @@ main {
 }
 
 .essay-body blockquote cite {
-  display: block;
+  display: inline;
   font-style: normal;
   font-family: var(--sans);
   font-size: .75rem;
   color: var(--muted);
-  margin-top: .4rem;
+  margin-left: .5em;
+}
+
+.essay-body cite {
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: .75rem;
+  color: var(--muted);
 }
 
 /* ── Chunk navigation ─────────────────────────────────────── */
