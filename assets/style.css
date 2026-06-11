@@ -266,11 +266,8 @@ main {
 .essay-body p { margin-bottom: 1rem; }
 
 .essay-body blockquote {
-  border-left: 3px solid var(--gold);
-  padding: .7rem 1.2rem;
-  margin: 1.2rem 0;
-  background: #ede4ce;
-  border-radius: 0 4px 4px 0;
+  padding: 0;
+  margin: 1.2rem 0 1.2rem 2rem;
   font-style: italic;
   font-size: .93rem;
   color: #3a2a10;
