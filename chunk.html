@@ -47,6 +47,8 @@ function parseMarkdown(md) {
     .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
     // Merge consecutive blockquote lines
     .replace(/<\/blockquote>\n<blockquote>/g, '\n')
+    // cite tags (unescape back to HTML after escaping)
+    .replace(/&lt;cite&gt;(.+?)&lt;\/cite&gt;/g, '<cite>$1</cite>')
     // headings
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
