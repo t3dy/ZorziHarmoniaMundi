@@ -33,39 +33,11 @@
   </p>
 </footer>
 
+<script src="assets/markdown.js"></script>
 <script>
 const TOTAL = 163;
 
 function pad(n) { return String(n).padStart(3, '0'); }
-
-function parseMarkdown(md) {
-  // Minimal markdown → HTML: headings, bold, italic, blockquotes, paragraphs
-  let html = md
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    // blockquotes: lines starting with >
-    .replace(/^&gt;&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
-    // Merge consecutive blockquote lines
-    .replace(/<\/blockquote>\n<blockquote>/g, '\n')
-    // cite tags (unescape back to HTML after escaping)
-    .replace(/&lt;cite&gt;(.+?)&lt;\/cite&gt;/g, '<cite>$1</cite>')
-    // Merge cite tags directly after blockquotes (keep citations inline with quotes)
-    .replace(/<\/blockquote>\n+<cite>/g, '<cite>')
-    // headings
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
-    // bold/italic
-    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    // horizontal rules
-    .replace(/^---+$/gm, '<hr>')
-    // paragraphs: double newlines
-    .replace(/\n{2,}/g, '\n</p><p>\n')
-    .replace(/\n/g, '<br>');
-  return '<p>' + html + '</p>';
-}
 
 function renderEssay(data) {
   const wrap = document.getElementById('essay-wrap');
@@ -81,7 +53,7 @@ function renderEssay(data) {
       <div class="essay-pages">${escHtml(data.pages || '')}</div>
     </div>
     <div class="essay-card-summary">${escHtml(data.card_summary || '')}</div>
-    <div class="essay-body">${parseMarkdown(data.essay || '')}</div>
+    <div class="essay-body">${mdToHtml(data.essay || '')}</div>
     <div class="chunk-nav">${prev}${next}</div>
   `;
 }
@@ -114,6 +86,9 @@ async function init() {
 }
 
 init();
+installProgressBar();
+installBackToTop();
+installKeyboardNav();
 </script>
 </body>
 </html>

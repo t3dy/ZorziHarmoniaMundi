@@ -244,30 +244,36 @@ main {
 
 .essay-body {
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
 .essay-body h2 {
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--rust);
-  margin: 2rem 0 .6rem;
+  margin: 1.7rem 0 .45rem;
   border-bottom: 1px solid var(--rule);
-  padding-bottom: .3rem;
+  padding-bottom: .25rem;
 }
 
 .essay-body h3 {
   font-size: 1rem;
   font-weight: 600;
   color: var(--ink);
-  margin: 1.5rem 0 .4rem;
+  margin: 1.25rem 0 .3rem;
 }
 
-.essay-body p { margin-bottom: 1rem; }
+.essay-body p { margin-bottom: .85rem; }
+
+.essay-body hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 1.5rem 0;
+}
 
 .essay-body blockquote {
   padding: 0;
-  margin: 1.2rem 0 1.2rem 2rem;
+  margin: .9rem 0 .9rem 2rem;
   font-style: italic;
   font-size: .93rem;
   color: #3a2a10;
@@ -332,6 +338,37 @@ footer a { color: var(--gold); text-decoration: none; }
   header { padding: 1.5rem 1rem 1.2rem; }
   main { padding: 1.2rem 1rem 3rem; }
 }
+
+/* ── Reading progress bar ─────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0;
+  background: var(--gold);
+  z-index: 100;
+}
+
+/* ── Back to top ──────────────────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  width: 42px; height: 42px;
+  border: 1px solid var(--card-brd);
+  border-radius: 50%;
+  background: var(--card-bg);
+  color: var(--gold);
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  z-index: 90;
+}
+
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { background: var(--hover-bg); }
 
 /* ── Spinner for essay load ───────────────────────────────── */
 .spinner {

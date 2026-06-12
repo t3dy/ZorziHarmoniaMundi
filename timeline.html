@@ -3,70 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biographical Timeline — L'armonia del mondo</title>
-  <meta name="description" content="Biographical timeline of Francesco Zorzi (1466–1525), Venetian Franciscan friar and Christian Kabbalist.">
+  <title>Timeline — L'armonia del mondo</title>
+  <meta name="description" content="Combined biographical and bibliographical timeline of Francesco Zorzi (1466–1540), Venetian Franciscan friar and Christian Kabbalist.">
   <link rel="stylesheet" href="assets/style.css">
   <style>
-    .timeline-tabs {
+    .timeline-wrap { max-width: 780px; margin: 0 auto; }
+
+    .timeline-filter {
       display: flex;
-      gap: 0;
-      border-bottom: 2px solid var(--rule);
-      margin-bottom: 2rem;
+      gap: .6rem;
+      margin-bottom: 1.6rem;
+      font-family: var(--sans);
+      font-size: .82rem;
       flex-wrap: wrap;
     }
-    .timeline-tabs button {
-      background: transparent;
-      border: none;
-      border-bottom: 3px solid transparent;
-      padding: .8rem 1.2rem;
+    .timeline-filter button {
+      background: var(--card-bg);
+      border: 1px solid var(--card-brd);
+      border-radius: 999px;
+      padding: .35rem 1rem;
       cursor: pointer;
-      font-family: var(--sans);
-      font-size: .9rem;
       color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      transition: color .15s, border-color .15s;
+      letter-spacing: .06em;
+      transition: color .15s, border-color .15s, background .15s;
     }
-    .timeline-tabs button.active {
-      color: var(--ink);
-      border-bottom-color: var(--gold);
+    .timeline-filter button.active {
+      color: var(--rust);
+      border-color: var(--gold);
+      background: var(--hover-bg);
     }
-    .timeline-tabs button:hover {
-      color: var(--ink);
-    }
-
-    .timeline-content { display: none; }
-    .timeline-content.active { display: block; }
 
     .timeline {
       position: relative;
-      padding: 2rem 0 2rem 3rem;
+      padding: .5rem 0 1rem 3rem;
     }
     .timeline::before {
       content: '';
       position: absolute;
-      left: 0.5rem;
-      top: 0;
-      bottom: 0;
+      left: .5rem;
+      top: 0; bottom: 0;
       width: 2px;
       background: var(--rule);
     }
 
     .timeline-event {
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.9rem;
       position: relative;
     }
     .timeline-event::before {
       content: '';
       position: absolute;
       left: -3rem;
-      top: .2rem;
-      width: 12px;
-      height: 12px;
+      top: .25rem;
+      width: 12px; height: 12px;
       background: var(--gold);
       border: 2px solid var(--paper);
       border-radius: 50%;
     }
+    .timeline-event.works::before { background: var(--rust); }
+    .timeline-event.hidden { display: none; }
 
     .timeline-year {
       font-family: var(--sans);
@@ -74,42 +69,53 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: .2rem;
+      margin-bottom: .15rem;
+      display: flex;
+      align-items: baseline;
+      gap: .6rem;
     }
+    .timeline-tag {
+      font-size: .62rem;
+      letter-spacing: .1em;
+      border: 1px solid var(--card-brd);
+      border-radius: 3px;
+      padding: .05rem .4rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .timeline-event.works .timeline-tag { color: var(--rust); border-color: var(--rust); }
 
     .timeline-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       font-weight: 600;
       color: var(--rust);
-      margin-bottom: .4rem;
+      margin-bottom: .25rem;
     }
 
     .timeline-description {
-      font-size: .95rem;
-      line-height: 1.7;
+      font-size: .93rem;
+      line-height: 1.65;
       color: #3a2e1a;
     }
-
-    .timeline-description strong {
-      font-weight: 600;
-      color: var(--ink);
-    }
+    .timeline-description strong { font-weight: 600; color: var(--ink); }
 
     .reference-link {
       display: block;
-      margin-top: .6rem;
+      margin-top: .35rem;
       font-family: var(--sans);
-      font-size: .8rem;
+      font-size: .76rem;
       color: var(--muted);
     }
+    .reference-link a { color: var(--gold); text-decoration: none; }
+    .reference-link a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="subtitle">Biographical Context</div>
+  <div class="subtitle">Life &amp; Works</div>
   <h1><em>L'armonia del mondo</em></h1>
-  <div class="meta">Francesco Zorzi · 1466–1525</div>
+  <div class="meta">Francesco Zorzi · 1466–1540</div>
 </header>
 
 <nav class="breadcrumb">
@@ -117,173 +123,292 @@
 </nav>
 
 <main>
-  <div style="max-width: 780px; margin: 0 auto;">
-    <div class="timeline-tabs">
-      <button class="tab-btn active" data-tab="biography">Biographical Timeline</button>
-      <button class="tab-btn" data-tab="works">Major Works</button>
+  <div class="timeline-wrap">
+    <div class="timeline-filter" role="group" aria-label="Filter timeline">
+      <button class="active" data-filter="all">All events</button>
+      <button data-filter="life">Life</button>
+      <button data-filter="works">Works</button>
     </div>
 
-    <!-- Biographical Timeline Tab -->
-    <div id="biography" class="timeline-content active">
-      <div class="timeline">
-        <div class="timeline-event">
-          <div class="timeline-year">1466</div>
-          <div class="timeline-title">Birth in Venice</div>
-          <div class="timeline-description">
-            Francesco Zorzi (also called Giorgio) is born on <strong>7 April 1466</strong> in Venice, the son of Benedetto and Bianca Sanudo, niece of the celebrated Venetian historian and chronicler Marin Sanudo. He descends from one of the oldest patrician families of the Venetian republic.
-          </div>
-          <span class="reference-link">Source: Chunk 1, Biographical Sketch</span>
-        </div>
+    <div class="timeline">
 
-        <div class="timeline-event">
-          <div class="timeline-year">c. 1470s</div>
-          <div class="timeline-title">Early Formation</div>
-          <div class="timeline-description">
-            Zorzi's early formation is poorly documented. He probably attended the <strong>Studio patavino</strong> (University of Padua) before pursuing religious vocation.
-          </div>
-          <span class="reference-link">Source: Chunk 1, Biographical Sketch</span>
+      <div class="timeline-event life">
+        <div class="timeline-year">7 April 1466 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Birth in Venice</div>
+        <div class="timeline-description">
+          Francesco Zorzi (also called Giorgio) is born in Venice, the son of Benedetto and Bianca Sanudo, niece of the celebrated Venetian historian and chronicler <strong>Marin Sanudo</strong>. He descends from one of the oldest patrician families of the Venetian republic.
         </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">Before 1481</div>
-          <div class="timeline-title">Entry into the Franciscan Observance</div>
-          <div class="timeline-description">
-            Zorzi enters the <strong>Franciscan Observance</strong>, the reformed branch of the Franciscan order. He associates himself from early on with the convent of <strong>San Francesco della Vigna</strong> in the Castello district of Venice. For a long period, he holds the title of <em>lector</em> (teacher of theology) in the schools of the order.
-          </div>
-          <span class="reference-link">Source: Chunk 1, Biographical Sketch</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">1494</div>
-          <div class="timeline-title">Pilgrimage to Palestine</div>
-          <div class="timeline-description">
-            Zorzi undertakes a formative pilgrimage to the <strong>Holy Land</strong>, visiting biblical sites from north to south along the customary route. Campanini judges this experience so formative that he dedicates a special section of the introduction to it. The abundance of references to Palestinian sites and monuments across all of Zorzi's works—including works written more than forty years later—testifies to the lasting impression this pilgrimage made on both his spiritual life and his exegetical method.
-          </div>
-          <span class="reference-link">Source: Chunk 1, The Palestinian Pilgrimage</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">c. 1500</div>
-          <div class="timeline-title">Engagement with the Hebrew Book Trade</div>
-          <div class="timeline-description">
-            Zorzi develops his earliest documented engagement with the Jewish world and Hebrew scholarship. He forms a friendship and possibly patronage relationship with <strong>Gershom Soncino</strong>, the celebrated Hebrew printer, who attempts to establish a Hebrew printing press in Venice around the turn of the century. This connection provides Zorzi with access to Hebrew texts and manuscripts of kabbalistic works.
-          </div>
-          <span class="reference-link">Source: Chunk 1, Early Connections to the Hebrew World</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">1502</div>
-          <div class="timeline-title">First Printed Mention; Excommunication Episode</div>
-          <div class="timeline-description">
-            <strong>Two significant events occur this year:</strong>
-            <br><br>
-            <em>Publication:</em> The first book to mention Zorzi—the first book printed in Fano by Lorenzo Bevilacqua (Laurentius Abstemius)—is dedicated to the Venetian friar, documenting his growing reputation.
-            <br><br>
-            <em>Excommunication:</em> A passage in Marin Sanudo's <em>Diari</em> records that Zorzi is absolved from a previous excommunication imposed on him for having defended <strong>Giovanni Maria Biondo</strong>, identified as one of the most significant Italian proto-Protestants. The precise extent to which Zorzi shared Biondo's ideas remains unknown, but the episode is emblematic of the religious tensions already sharpening at the opening of the sixteenth century.
-          </div>
-          <span class="reference-link">Source: Chunk 1, Early Connections to the Hebrew World; The 1502 Excommunication Episode</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">1502–1525</div>
-          <div class="timeline-title">Years of Composition and Diplomatic Activity</div>
-          <div class="timeline-description">
-            During these two decades, Zorzi composes his major theological and philosophical works, including <em>De Harmonia Mundi</em>. Despite his religious vocation precluding secular office, he plays a notable role in the political life of his times through diplomatic missions and theological consultations, particularly regarding Henry VIII's divorce and other matters of church and state.
-          </div>
-          <span class="reference-link">Source: Campanini's Introductory Essay</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">September 1525</div>
-          <div class="timeline-title">Publication of De Harmonia Mundi Totius Cantica Tria</div>
-          <div class="timeline-description">
-            Zorzi's magnum opus, <strong><em>De harmonia mundi totius cantica tria</em></strong> (On the Harmony of the Entire World in Three Canticles), is published in <strong>Venice by Bernardino Vitali</strong>, using Latin, Greek, and Hebrew typefaces. The work represents the culmination of Zorzi's lifelong synthesis of Christian theology, Neoplatonism, Hermeticism, and Jewish Kabbalah. Campanini situates it as one of the high points of the Florentine Neoplatonist tradition inaugurated by Ficino and Pico della Mirandola.
-          </div>
-          <span class="reference-link">Source: Chunk 1, The De harmonia mundi: Publication and Positioning</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">After 1525</div>
-          <div class="timeline-title">Later Years and Legacy</div>
-          <div class="timeline-description">
-            Zorzi continues his theological work and pastoral duties within the Franciscan order. He dies sometime <strong>after 1525</strong>, exact date unknown. His work exerts significant influence on subsequent Renaissance and early modern thought, particularly in Christian Kabbalah, Neoplatonism, and harmonic cosmology. The 2010 Bompiani edition by Saverio Campanini restores his work to contemporary scholarly attention.
-          </div>
-          <span class="reference-link">Source: Campanini's Editorial Assessment</span>
-        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, Biographical Sketch (chunk 1)</a></span>
       </div>
-    </div>
 
-    <!-- Major Works Tab -->
-    <div id="works" class="timeline-content">
-      <div class="timeline">
-        <div class="timeline-event">
-          <div class="timeline-year">c. 1510–1520</div>
-          <div class="timeline-title">Composition of De Harmonia Mundi</div>
-          <div class="timeline-description">
-            Zorzi's primary work is the <em>De harmonia mundi totius cantica tria</em>, a vast cosmological and theological synthesis organized into three canticles (cantici) corresponding to different levels of reality. The work is structured around music as the "grammar of all levels of being" (grammatica di tutti i livelli del reale), demonstrating harmonic correspondences from the divine realm through the celestial spheres to the human body and the material world.
-          </div>
-          <span class="reference-link">Source: All chunks 39–145 (The Three Canticles)</span>
+      <div class="timeline-event life">
+        <div class="timeline-year">c. 1470s <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Early Formation at Padua</div>
+        <div class="timeline-description">
+          Zorzi's early formation is poorly documented. He probably attends the <strong>Studio patavino</strong> (University of Padua) before pursuing his religious vocation.
         </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">1525</div>
-          <div class="timeline-title">De Harmonia Mundi Published</div>
-          <div class="timeline-description">
-            The complete work appears in September 1525 (3,087 pages in the Bompiani edition) as a monumental synthesis of Renaissance learning. It contains over fifty kabbalistic sources, extensive references to Platonic, Aristotelian, and Neoplatonic philosophy, Church Fathers, and contemporary humanist scholarship. The edition includes detailed exegetical commentary on Scripture and harmonic analysis of theological concepts.
-          </div>
-          <span class="reference-link">Source: Chunk 1; All essay chunks</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">1557</div>
-          <div class="timeline-title">French Translation by Guy Le Fèvre de la Boderie</div>
-          <div class="timeline-description">
-            <em>De Harmonia Mundi</em> is translated into French by <strong>Guy Le Fèvre de la Boderie</strong>, a major humanist and translator. This French version significantly extends Zorzi's influence into Francophone intellectual circles and establishes his work as a canonical Renaissance text on harmonic cosmology and Christian Kabbalah.
-          </div>
-          <span class="reference-link">Source: Campanini's Reception History</span>
-        </div>
-
-        <div class="timeline-event">
-          <div class="timeline-year">2010</div>
-          <div class="timeline-title">Bompiani Critical Edition</div>
-          <div class="timeline-description">
-            <strong>Saverio Campanini</strong> produces a comprehensive critical edition of <em>De Harmonia Mundi</em> published by Bompiani in the series <em>Il Pensiero Occidentale</em>. The edition presents the full Latin text alongside a complete Italian translation, extensive prefatory essay, and critical apparatus identifying and annotating over fifty kabbalistic sources, references to Greek and Hebrew texts, and Zorzi's theological method. This modern edition restores Zorzi's work to contemporary scholarly attention and enables new research into Renaissance Christian Kabbalah.
-          </div>
-          <span class="reference-link">Source: The present website</span>
-        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, Biographical Sketch (chunk 1)</a></span>
       </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">Before 1481 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Entry into the Franciscan Observance</div>
+        <div class="timeline-description">
+          Zorzi enters the <strong>Franciscan Observance</strong>, the reformed branch of the order, associating himself from early on with the convent of <strong>San Francesco della Vigna</strong> in the Castello district of Venice. For a long period he teaches theology in the schools of the order with the title of <em>lector</em>.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, Biographical Sketch (chunk 1)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1494 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Pilgrimage to the Holy Land</div>
+        <div class="timeline-description">
+          Zorzi undertakes a formative pilgrimage to <strong>Palestine</strong>, visiting the biblical sites from north to south along the customary route. References to Palestinian sites recur across all his works — even those written more than forty years later. Campanini frames the pilgrimage as philosophical evidence: it durably shapes Zorzi's distinctive balance between <em>auctoritas</em> (textual authority) and <em>experimentum</em> (personal verification).
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, The Palestinian Pilgrimage (chunks 1, 4)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">c. 1500 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Engagement with the Hebrew Book Trade</div>
+        <div class="timeline-description">
+          Zorzi forms a friendship and possible patronage relationship with <strong>Gershom Soncino</strong>, the celebrated Hebrew printer, who attempts to establish a Hebrew press in Venice around the turn of the century. This connection gives Zorzi access to Hebrew texts and manuscripts of kabbalistic works.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, Early Connections to the Hebrew World (chunk 1)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1502 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">First Printed Mention; Excommunication Absolved</div>
+        <div class="timeline-description">
+          The first book printed in Fano by Lorenzo Bevilacqua (Laurentius Abstemius) is dedicated to Zorzi, documenting his growing reputation. The same year, Marin Sanudo's <em>Diari</em> record that Zorzi is absolved from a prior excommunication imposed for having defended <strong>Giovanni Maria Biondo</strong>, one of the most significant Italian proto-Protestants — an episode emblematic of the sharpening religious tensions of the new century.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, The 1502 Excommunication Episode (chunk 1)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">From 1504 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Spiritual Director of the Holy Sepulchre Convent; Chiara Bugni</div>
+        <div class="timeline-description">
+          Zorzi serves as confessor and spiritual director to the Clarisse convent of the Holy Sepulchre in Venice. Its abbess, <strong>suor Chiara Bugni</strong>, is the subject of extraordinary prodigies — a metal plant flowering, an apparition of Christ presenting a chalice of his blood. Zorzi keeps a diary of these events (a copy survives at San Francesco della Vigna) and later recalls Bugni in the <em>De harmonia mundi</em>, casting her as a typological double of <strong>Clare of Assisi</strong>. Church authorities react coldly and suppress the cult, but Zorzi retains his role.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1504–1508 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Three Candidacies for the Venetian Patriarchate</div>
+        <div class="timeline-description">
+          Zorzi is a candidate for the <strong>Venetian patriarchate</strong> on three separate occasions. Never elected, he is nonetheless consistently present at the final ballot — a signal of his high standing among the Republic's governing aristocracy.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1509–1514 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Diplomatic Missions for Venice</div>
+        <div class="timeline-description">
+          Under cover of Franciscan business, Zorzi functions as informal diplomat and at times intelligence agent for Venice: a journey to <strong>Ferrara</strong> for the Franciscan chapter (1509); contacts with representatives of the <strong>League of Cambrai</strong> (1510); a mission to the <strong>Duke of Mantua</strong> (1513); and a "pastoral visit" to <strong>Valdagno</strong> with a significant political agenda (1514).
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">c. 1510s <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">First Architectural Involvement: Motta di Livenza</div>
+        <div class="timeline-description">
+          Following a miraculous apparition of the Virgin, Zorzi supervises the construction of a Franciscan sanctuary at <strong>Motta di Livenza</strong> — his first recorded involvement in architecture, anticipating his later, influential role at San Francesco della Vigna.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1513–1515 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Provincial Vicar of the Order</div>
+        <div class="timeline-description">
+          Zorzi holds the important office of <strong>provincial vicar</strong> of the Franciscan Observance, consolidating his institutional authority within the order.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1517 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">The Araceli Chapter: Observant–Conventual Split</div>
+        <div class="timeline-description">
+          Zorzi attends the <em>capitolo generalissimo</em> at the Araceli in Rome, where <strong>Pope Leo X</strong> formally ratifies the separation between the <strong>Conventuali</strong> and the <strong>Osservanti</strong> — an outcome Campanini calls "at least in part a victory for the Observance," in which Zorzi plays a non-marginal role. He is elected <em>definitore generale</em> of the Observants.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1518 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">General Chapter at Lyons</div>
+        <div class="timeline-description">
+          As <em>definitore generale</em>, Zorzi attends the general chapter of the Franciscan order at <strong>Lyons</strong>.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">c. 1519–1523 <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">Composition of De Harmonia Mundi</div>
+        <div class="timeline-description">
+          Campanini reconstructs the composition period from two internal date-references: a passage in the First Canticle calculating the Julian calendar's drift "in 1520 anni" (placing that layer around 1520, in the wake of the <strong>Fifth Lateran Council</strong>'s calendar debates), and a passage in the Third Canticle declaring "Ora che ci troviamo nel 1523° anno a partire dalla nascita di Cristo." The work is conceived as a universal concordance of knowledge founded on music as "the grammar of all levels of reality."
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Composition Timeline (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">September 1525 <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">Publication of De Harmonia Mundi Totius Cantica Tria</div>
+        <div class="timeline-description">
+          Zorzi's magnum opus is published in Venice by <strong>Bernardino Vitali</strong>, printed with Latin, Greek, and Hebrew typefaces and dedicated to <strong>Pope Clement VII</strong>. Three canticles, each in eight tones, expound the consonance between the sensible world, the intelligible Archetype, and Christ the restorer of universal harmony. Campanini situates it as one of the high points of the Florentine Neoplatonist tradition inaugurated by Ficino and Pico della Mirandola, citing over fifty kabbalistic authors and anonymous works.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=001">Campanini, Publication and Positioning (chunk 1)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1528 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Sermon in San Marco for the Baptism of a Rabbi</div>
+        <div class="timeline-description">
+          Zorzi preaches in the <strong>Basilica of San Marco</strong> to celebrate the baptism of <strong>Jacob</strong>, a learned Neapolitan Jew formerly tutor to the children of the Mantuan ambassador — an event witnessed and recorded by the chronicler Marin Sanudo. Campanini tentatively identifies Jacob with the "famous rabbi" whom Zorzi says he personally initiated into the Christian faith, an important intellectual interlocutor for his Hebraic studies.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=002">Campanini, Saggio introduttivo (chunk 2)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1530 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Consultant in Henry VIII's "Great Matter"</div>
+        <div class="timeline-description">
+          The royal emissary <strong>Richard Croke</strong> (operating under the alias "Giovanni di Fiandra") recruits Zorzi to provide canonical arguments for the nullity of Henry VIII's marriage to Catherine of Aragon — a dispute turning on the apparent contradiction between Leviticus and Deuteronomy on the levirate. Zorzi assembles books and documents through his dense network in the Venetian Jewish world: the convert <strong>Marco Raphael</strong>, and leading scholars <strong>Eliah Menachem Chalfan</strong>, <strong>Baruch (Benedetto) Axelrad</strong>, and <strong>Calo Calonimos</strong>. He may have benefited from English royal funds for acquiring rare kabbalistic manuscripts.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=003">Campanini, Zorzi and the King's Great Matter (chunks 2–3)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1531 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Withdrawal from the Divorce Controversy; Brescia Candidacy Fails</div>
+        <div class="timeline-description">
+          Summoned to Rome by the pope and under pressure from the Venetian government, Zorzi quietly withdraws from the divorce controversy — without recanting his support for Henry. His candidacy for the <strong>bishopric of Brescia</strong> predictably fails for want of political support.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=003">Campanini, Saggio introduttivo (chunk 3)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1532 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">The Paltrinieri Letter: Zorzi's Kabbalistic Library</div>
+        <div class="timeline-description">
+          A letter published anonymously among the works of Cornelius Agrippa — attributed by Campanini to <strong>Bernardo Paltrinieri</strong>, majordomo of Cardinal Campeggi — records a chance meeting with Zorzi near Padua. It documents that Zorzi possessed Hebrew books both the writer and Agrippa had long sought, offered to show them ("for reading, not copying"), and promised "la cabala di Samuele." The letter is vivid testimony to the network of enthusiasts sustaining Christian Kabbalah — and to Zorzi's characteristic caution in sharing his collection.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=003">Campanini, The 1532 Letter (chunk 3)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1533–1534 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">San Francesco della Vigna: Harmonic Architecture</div>
+        <div class="timeline-description">
+          Zorzi is appointed <em>procuratore della fabbrica</em> for the reconstruction of <strong>San Francesco della Vigna</strong>, initiated by Doge Andrea Gritti with <strong>Jacopo Sansovino</strong> as architect. Objecting to Sansovino's proportions, Zorzi produces a famous memorandum combining Platonic numerology from the <em>Timaeus</em> with kabbalistic correspondence between temple and human body — signed by Sansovino, Fortunio Spira, Sebastiano Serlio, and <strong>Titian</strong>. The <em>De Harmonia Mundi</em> system is here applied to determine the literal proportions of a building. (The facade is added c. 1572 by Andrea Palladio.)
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=003">Campanini, San Francesco della Vigna and Sacred Architecture (chunk 3)</a></span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">1536 <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">Publication of In Scripturam Sacram Problemata</div>
+        <div class="timeline-description">
+          Zorzi's second major work appears in Venice (Bernardino Vitali), dedicated to <strong>Pope Paul III</strong>: three thousand questions on the biblical text in six volumes, with systematic recourse to kabbalistic literature, especially the <strong>Zohar</strong>. Its fifth volume expounds the doctrine of Zorzi's "seven sages" — Solomon and Job alongside Hermes Trismegistus, Plato, Orpheus, Pythagoras, and Zoroaster. The work also reveals striking empirical interests: anatomical observation ("noi abbiamo visto entrambe"), the question of natural language, and the famous calculation of 22! — the factorial of the Hebrew alphabet — as the mathematical matrix of all reality.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=003">Campanini, Saggio introduttivo (chunks 3–4)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">c. 1536–1540 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">The Contarini Controversy</div>
+        <div class="timeline-description">
+          The <em>Problemata</em> provokes immediate orthodox criticism: the humanist cardinal <strong>Gasparo Contarini</strong> attacks several passages as doctrinally dubious. Zorzi replies with an <em>Apologia</em> (now lost), which fails to satisfy Contarini, who answers with a formal <em>Responsio</em>. Even Pietro Bembo harbors doubts about Zorzi's orthodoxy — the opening of a censorship history that will outlive its author.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=004">Campanini, The Contarini Controversy (chunk 4)</a></span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">Final years, Asolo <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">The Elegante Poema and the Commentary on Pico</div>
+        <div class="timeline-description">
+          Retired to <strong>Asolo</strong>, away from the theological battlefield, Zorzi composes the <em>Elegante Poema</em> — a massive vernacular poem modeled on Dante's <em>Commedia</em>, in which biblical patriarchs reveal the occult meaning of Scripture — with an (incomplete) verse-by-verse commentary. More consequential is his <strong>commentary on Pico della Mirandola's kabbalistic <em>Conclusiones</em></strong>, recently rediscovered in manuscript: Arcangelo da Borgonovo's published commentary proves to be largely a <em>reportatio</em> of Zorzi's oral teaching. He also designs three roads with fountains ascending to the convent of San Gerolamo at Asolo, conceived as a meditative complement to the climb.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=004">Campanini, Final Works (chunks 3–4)</a></span>
+      </div>
+
+      <div class="timeline-event life">
+        <div class="timeline-year">1540 <span class="timeline-tag">Life</span></div>
+        <div class="timeline-title">Death at Asolo</div>
+        <div class="timeline-description">
+          Zorzi dies in 1540, having spent his final years at Asolo. His work exerts lasting influence on Christian Kabbalah, harmonic cosmology, and the esoteric tradition of early modern Europe.
+        </div>
+        <span class="reference-link">Source: Campanini, Saggio introduttivo</span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">1557 <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">French Translation by Guy Le Fèvre de la Boderie</div>
+        <div class="timeline-description">
+          <em>De Harmonia Mundi</em> is translated into French by <strong>Guy Le Fèvre de la Boderie</strong>, a major humanist and translator, extending Zorzi's influence into Francophone intellectual circles and establishing the work as a canonical Renaissance text on harmonic cosmology and Christian Kabbalah.
+        </div>
+        <span class="reference-link">Source: Campanini's Reception History</span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">Later 16th c. <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">The Index: donec corrigatur</div>
+        <div class="timeline-description">
+          Following sustained refutations by Sisto da Siena, <strong>Roberto Bellarmino</strong>, and Marin Mersenne, Zorzi's works are placed on the <em>Index Librorum Prohibitorum</em> with the formula <em>donec corrigatur</em> — readable only after heavy censorship. The expurgation proves "entirely illusory": the kabbalistic thread runs through the whole fabric. Physical deletions and marginalia scar virtually every surviving Italian copy of the <em>De harmonia mundi</em> and <em>Problemata</em>.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=004">Campanini, The Contarini Controversy and the Index (chunk 4)</a></span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">1636 <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">Mersenne Corrects the Factorial of 22</div>
+        <div class="timeline-description">
+          Zorzi's slightly erroneous value of 22! — copied uncritically by Arcangelo da Borgonovo and Blaise de Vigenère (<em>Traicté des chiffres</em>, 1586) — is finally corrected by <strong>Marin Mersenne</strong> in the <em>Harmonie universelle</em>: a measure of how widely Zorzi was copied, and how rarely checked.
+        </div>
+        <span class="reference-link">Source: <a href="chunk.html?id=004">Campanini, The Factorial of 22 (chunk 4)</a></span>
+      </div>
+
+      <div class="timeline-event works">
+        <div class="timeline-year">2010 <span class="timeline-tag">Works</span></div>
+        <div class="timeline-title">Bompiani Critical Edition</div>
+        <div class="timeline-description">
+          <strong>Saverio Campanini</strong> publishes the comprehensive critical edition <em>L'armonia del mondo</em> (Bompiani, <em>Il Pensiero Occidentale</em>): full Latin text with complete Italian translation, extensive introductory essay, and a critical apparatus identifying over fifty kabbalistic sources — restoring Zorzi to contemporary scholarly attention.
+        </div>
+        <span class="reference-link">Source: The present edition</span>
+      </div>
+
     </div>
   </div>
 </main>
 
 <footer>
   <p>
-    Biographical information extracted from Saverio Campanini's introductory essay.
-    Timeline compiled from scholarly summaries. ·
+    Biographical and bibliographical events extracted from Saverio Campanini's introductory essay (chunks 1–4). ·
     <a href="https://github.com/t3dy/ZorziHarmoniaMundi" target="_blank">GitHub</a>
   </p>
 </footer>
 
+<script src="assets/markdown.js"></script>
 <script>
-document.querySelectorAll('.tab-btn').forEach(btn => {
+document.querySelectorAll('.timeline-filter button').forEach(btn => {
   btn.addEventListener('click', function() {
-    const tabName = this.getAttribute('data-tab');
-
-    // Hide all tabs
-    document.querySelectorAll('.timeline-content').forEach(tab => {
-      tab.classList.remove('active');
-    });
-
-    // Remove active class from all buttons
-    document.querySelectorAll('.tab-btn').forEach(b => {
-      b.classList.remove('active');
-    });
-
-    // Show selected tab and mark button active
-    document.getElementById(tabName).classList.add('active');
+    document.querySelectorAll('.timeline-filter button').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
+    const f = this.dataset.filter;
+    document.querySelectorAll('.timeline-event').forEach(ev => {
+      ev.classList.toggle('hidden', f !== 'all' && !ev.classList.contains(f));
+    });
   });
 });
+installProgressBar();
+installBackToTop();
 </script>
 </body>
 </html>

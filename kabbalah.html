@@ -7,97 +7,114 @@
   <meta name="description" content="Comprehensive synthesis of Kabbalistic and Christian cabalist content in Francesco Zorzi's De Harmonia Mundi.">
   <link rel="stylesheet" href="assets/style.css">
   <style>
-    .kabbalah-wrap {
-      max-width: 900px;
-      margin: 0 auto;
+    .kabbalah-layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 46rem);
+      gap: 3rem;
+      justify-content: center;
     }
+
+    /* Sticky table of contents */
     .kabbalah-toc {
-      background: var(--card-bg);
-      border: 1px solid var(--card-brd);
-      border-radius: 6px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
+      position: sticky;
+      top: 1.5rem;
+      align-self: start;
+      font-family: var(--sans);
+      font-size: .82rem;
+      line-height: 1.45;
+      border-right: 1px solid var(--rule);
+      padding-right: 1.2rem;
+      max-height: calc(100vh - 3rem);
+      overflow-y: auto;
     }
     .kabbalah-toc h3 {
-      margin: 0 0 1rem 0;
-      font-size: 0.95rem;
+      font-size: .75rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: .12em;
       color: var(--gold);
+      margin-bottom: .8rem;
     }
-    .kabbalah-toc ul {
-      list-style: none;
-      padding: 0;
-    }
-    .kabbalah-toc li {
-      margin-bottom: 0.5rem;
-    }
+    .kabbalah-toc ul { list-style: none; }
+    .kabbalah-toc li { margin-bottom: .55rem; }
     .kabbalah-toc a {
-      color: var(--link);
+      color: var(--muted);
       text-decoration: none;
+      display: block;
+      border-left: 2px solid transparent;
+      padding-left: .6rem;
+      margin-left: -.6rem;
+      transition: color .15s, border-color .15s;
     }
-    .kabbalah-toc a:hover {
-      text-decoration: underline;
-    }
+    .kabbalah-toc a:hover { color: var(--ink); }
+    .kabbalah-toc a.active { color: var(--rust); border-left-color: var(--gold); }
+
+    /* Essay body — encyclopedia-article density */
     .kabbalah-body {
-      font-size: 1.05rem;
-      line-height: 1.85;
+      font-size: 1rem;
+      line-height: 1.7;
     }
     .kabbalah-body h1 {
-      font-size: 2rem;
+      font-size: 1.7rem;
       font-weight: 400;
       color: var(--rust);
-      margin: 0 0 1rem 0;
-      line-height: 1.2;
+      line-height: 1.25;
+      margin: 0 0 1.2rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--rule);
     }
     .kabbalah-body h2 {
-      font-size: 1.4rem;
-      font-weight: 400;
+      font-size: 1.25rem;
+      font-weight: 600;
       color: var(--rust);
-      margin: 2.5rem 0 0.8rem 0;
+      margin: 1.8rem 0 .5rem;
+      padding-bottom: .25rem;
       border-bottom: 1px solid var(--rule);
-      padding-bottom: 0.4rem;
     }
     .kabbalah-body h3 {
-      font-size: 1.1rem;
+      font-size: 1.02rem;
       font-weight: 600;
       color: var(--ink);
-      margin: 1.8rem 0 0.6rem 0;
+      margin: 1.3rem 0 .35rem;
     }
-    .kabbalah-body p {
-      margin-bottom: 1.2rem;
-    }
+    .kabbalah-body p { margin-bottom: .85rem; }
     .kabbalah-body blockquote {
       padding: 0;
-      margin: 1.2rem 0 1.2rem 2rem;
+      margin: .9rem 0 .9rem 2rem;
       font-style: italic;
-      font-size: 0.98rem;
+      font-size: .95rem;
       color: #3a2a10;
     }
     .kabbalah-body cite {
       display: inline;
       font-style: normal;
       font-family: var(--sans);
-      font-size: 0.8rem;
+      font-size: .78rem;
       color: var(--muted);
-      margin-left: 0.5em;
+      margin-left: .5em;
     }
+    .kabbalah-body hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 1.6rem 0;
+    }
+
+    /* Hyperlinked citations */
     .citation {
       color: var(--rust);
       text-decoration: none;
       border-bottom: 1px dotted var(--gold);
-      cursor: pointer;
     }
-    .citation:hover {
-      background: #ede4ce;
-      border-bottom-color: var(--rust);
-    }
-    @media (max-width: 900px) {
-      .kabbalah-wrap {
-        padding: 0 1rem;
-      }
-      .kabbalah-body {
-        font-size: 1rem;
+    .citation:hover { background: #ede4ce; border-bottom-color: var(--rust); }
+
+    @media (max-width: 880px) {
+      .kabbalah-layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .kabbalah-toc {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+        padding: 0 0 1.2rem;
+        margin-bottom: 1.5rem;
+        max-height: none;
       }
     }
   </style>
@@ -115,23 +132,14 @@
 </nav>
 
 <main>
-  <div class="kabbalah-wrap">
-    <div class="kabbalah-toc">
+  <div class="kabbalah-layout">
+    <aside class="kabbalah-toc">
       <h3>Contents</h3>
-      <ul>
-        <li><a href="#intro">Introduction: Zorzi as Christian Cabalist Synthesizer</a></li>
-        <li><a href="#section1">Section 1: Kabbalistic Cosmology</a></li>
-        <li><a href="#section2">Section 2: Harmonic Correspondence and Number Theory</a></li>
-        <li><a href="#section3">Section 3: Hebrew Sources and Textual Authorities</a></li>
-        <li><a href="#section4">Section 4: Christian Integration</a></li>
-        <li><a href="#section5">Section 5: Mystical Praxis</a></li>
-        <li><a href="#conclusion">Conclusion: Legacy and Significance</a></li>
-      </ul>
-    </div>
-
-    <div class="kabbalah-body" id="essay-content">
+      <ul id="toc-list"></ul>
+    </aside>
+    <article class="kabbalah-body" id="essay-content">
       <div class="spinner"></div>
-    </div>
+    </article>
   </div>
 </main>
 
@@ -143,35 +151,21 @@
   </p>
 </footer>
 
+<script src="assets/markdown.js"></script>
 <script>
-function parseMarkdown(md) {
-  let html = md
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/^&gt;&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/<\/blockquote>\n<blockquote>/g, '\n')
-    .replace(/&lt;cite&gt;(.+?)&lt;\/cite&gt;/g, '<cite>$1</cite>')
-    .replace(/<\/blockquote>\n+<cite>/g, '<cite>')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
-    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/^---+$/gm, '<hr>')
-    .replace(/\n{2,}/g, '\n</p><p>\n')
-    .replace(/\n/g, '<br>');
-  return '<p>' + html + '</p>';
-}
-
 function convertCitations(html) {
-  // Convert [Section N: "Heading" · pp. X–Y] to hyperlinks
-  const pattern = /\[Section (\d+):\s*"([^"]+)"\s*·\s*pp?\.\s*([^\]]+)\]/g;
-  return html.replace(pattern, function(match, sectionNum, heading, pages) {
-    const chunkNum = 38 + parseInt(sectionNum);
-    const chunkId = String(chunkNum).padStart(3, '0');
-    return `<a href="dharma-essay.html?id=${chunkId}" class="citation">Section ${sectionNum}: "${heading}" · pp. ${pages}</a>`;
-  });
+  // [Section N: "Heading" · pp. X–Y]  and  [Section N · pp. X–Y]
+  const full = /\[Section (\d+):\s*&quot;?"?([^\]·]+?)"?&quot;?\s*·\s*pp?\.\s*([^\]]+)\]/g;
+  const short = /\[Section (\d+)\s*·\s*pp?\.\s*([^\]]+)\]/g;
+  function link(sectionNum, label) {
+    const chunkId = String(38 + parseInt(sectionNum, 10)).padStart(3, '0');
+    return '<a href="dharma-essay.html?id=' + chunkId + '" class="citation">' + label + '</a>';
+  }
+  html = html.replace(full, (m, n, heading, pages) =>
+    link(n, 'Section ' + n + ': ' + heading.trim() + ' · pp. ' + pages.trim()));
+  html = html.replace(short, (m, n, pages) =>
+    link(n, 'Section ' + n + ' · pp. ' + pages.trim()));
+  return html;
 }
 
 async function init() {
@@ -179,10 +173,11 @@ async function init() {
     const r = await fetch('data/kabbalah-essay.json');
     if (!r.ok) throw new Error(r.status);
     const data = await r.json();
-    let html = parseMarkdown(data.essay);
+    let html = mdToHtml(data.essay);
     html = convertCitations(html);
-    document.getElementById('essay-content').innerHTML = html;
-    window.history.replaceState(null, '', window.location.pathname);
+    const body = document.getElementById('essay-content');
+    body.innerHTML = html;
+    buildToc(body, document.getElementById('toc-list'));
   } catch(e) {
     console.error(e);
     document.getElementById('essay-content').innerHTML =
@@ -191,6 +186,8 @@ async function init() {
 }
 
 init();
+installProgressBar();
+installBackToTop();
 </script>
 </body>
 </html>
